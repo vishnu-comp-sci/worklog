@@ -1,83 +1,30 @@
-Certainly, here's a detailed description to include in your Jira ticket for testing Wi-Fi device prioritization using Wireshark, focusing on DSCP markings and QoS control:
+def add_port_mapping(p_url, p_service, internal_client, internal_port, external_port, protocol, description):
+    payload = ('<?xml version="1.0" encoding="utf-8" standalone="yes"?' +
+               '<s:Envelope s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">' +
+               '<s:Body>' +
+               '<u:AddPortMapping xmlns:u="' + p_service + '">' +
+               '<NewRemoteHost></NewRemoteHost>' +
+               '<NewExternalPort>' + str(external_port) + '</NewExternalPort>' +
+               '<NewProtocol>' + protocol + '</NewProtocol>' +
+               '<NewInternalPort>' + str(internal_port) + '</NewInternalPort>' +
+               '<NewInternalClient>' + internal_client + '</NewInternalClient>' +
+               '<NewEnabled>1</NewEnabled>' +
+               '<NewPortMappingDescription>' + description + '</NewPortMappingDescription>' +
+               '<NewLeaseDuration>0</NewLeaseDuration>' +
+               '</u:AddPortMapping>' +
+               '</s:Body>' +
+               '</s:Envelope>')
 
-Description:
+    soapActionHeader = { 'Soapaction' : '"' + p_service + '#AddPortMapping' + '"',
+                         'Content-type' : 'text/xml;charset="utf-8"' }
+    resp = requests.post(p_url, data=payload, headers=soapActionHeader)
 
-Objective:
-The purpose of this Jira ticket is to perform comprehensive testing and analysis of Wi-Fi device prioritization in our network infrastructure. Specifically, we will use Wireshark to capture and inspect network packets to check for Differentiated Services Code Point (DSCP) markings and Quality of Service (QoS) control. This testing aims to ensure that network traffic is appropriately prioritized based on defined policies, DSCP markings, and QoS parameters.
+    if resp.status_code != 200:
+        print('\t[-] Failed to add port mapping. Status code: %d' % resp.status_code)
+    else:
+        print('\t[+] Port mapping added successfully: External Port %d => Internal Port %d' % (external_port, internal_port))
 
-Work Log:
-
-Research and Environment Setup:
-
-Researched DSCP and QoS in Wi-Fi networks.
-Prepared the testing environment and configured Wireshark for packet capture.
-Wireshark Packet Capture:
-
-Initiated packet capture using Wireshark on the target Wi-Fi network.
-Monitored and recorded network packets transmitted by various devices.
-DSCP Marking Inspection:
-
-Analyzed captured packets to identify DSCP markings in IP packet headers.
-Checked for DSCP values set for different types of network traffic (e.g., voice, video, data).
-QoS Control Examination:
-
-Examined the 802.11 QoS (Quality of Service) field in Wi-Fi frames.
-Verified the presence of QoS control information, such as Traffic Identifier (TID) and Access Category.
-Traffic Differentiation Validation:
-
-Cross-referenced DSCP markings and QoS control parameters to validate traffic differentiation.
-Assessed whether devices prioritize certain types of network traffic based on DSCP and QoS settings.
-Throughput and Latency Testing:
-
-Measured throughput and latency for different types of network traffic flows.
-Analyzed the impact of DSCP and QoS on network performance.
-QoS Policy Assessment:
-
-Reviewed the network's QoS policies, if defined.
-Compared observed behavior with the expected QoS policies.
-Documentation and Reporting:
-
-Documented findings, including DSCP markings, QoS control details, and prioritization observations.
-Generated a comprehensive report with clear, technical explanations and supporting data.
-Issue Identification:
-
-Identified any deviations from expected behavior, misconfigurations, or potential issues.
-Documented issues with reproducible steps and details.
-Collaboration and Resolution:
-
-Collaborated with network administrators or relevant teams to address identified issues.
-Assisted in implementing changes or configurations to align with desired QoS policies.
-Re-testing:
-
-Conducted additional packet capture and analysis after implementing changes.
-Verified the effectiveness of adjustments made to improve network prioritization.
-Validation of Fixes:
-
-Verified that previously identified issues have been successfully resolved.
-Ensured that DSCP and QoS parameters are now correctly implemented.
-User Acceptance Testing:
-
-Collaborated with end-users to assess the impact of network prioritization changes on their experience.
-Gathered feedback and addressed any user concerns.
-Performance Evaluation:
-
-Conducted performance evaluations to confirm that the network now meets the desired QoS and prioritization goals.
-Documentation and Knowledge Sharing:
-
-Updated network documentation to reflect the correct DSCP and QoS settings.
-Shared knowledge and findings with the team for future reference.
-Bug and Issue Tracking:
-
-Tracked and monitored any residual issues or new issues arising from the changes.
-Initiated bug reports or Jira tasks for further action.
-Outcome:
-The outcome of this testing is to ensure that our network's prioritization policies, as indicated by DSCP markings and QoS control, are functioning as expected, thereby optimizing the quality of service for various types of network traffic. Any identified issues or misconfigurations will be addressed and resolved, leading to a more efficient and reliable Wi-Fi network.
-
-Deliverables:
-
-Comprehensive report detailing DSCP markings, QoS control, and prioritization observations.
-Documentation updates reflecting any configuration changes and QoS policies.
-Bug reports and Jira tasks for any unresolved issues.
-Impact:
-Successful testing and optimization of Wi-Fi device prioritization will lead to improved network performance and user satisfaction. It ensures that critical applications and services receive the necessary priority, leading to a more efficient network infrastructure.
-
+# To add a port forwarding rule, call the add_port_mapping function with the necessary parameters.
+# Example:
+# add_port_mapping("http://192.168.1.1:32863/ctl/IPConn", "urn:schemas-upnp-org:service:WANIPConnection:2",
+#                  "192.168.1.100", 80, 8080, "TCP", "My Web Server")

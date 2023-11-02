@@ -1,30 +1,26 @@
-def add_port_mapping(p_url, p_service, internal_client, internal_port, external_port, protocol, description):
-    payload = ('<?xml version="1.0" encoding="utf-8" standalone="yes"?' +
-               '<s:Envelope s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">' +
-               '<s:Body>' +
-               '<u:AddPortMapping xmlns:u="' + p_service + '">' +
-               '<NewRemoteHost></NewRemoteHost>' +
-               '<NewExternalPort>' + str(external_port) + '</NewExternalPort>' +
-               '<NewProtocol>' + protocol + '</NewProtocol>' +
-               '<NewInternalPort>' + str(internal_port) + '</NewInternalPort>' +
-               '<NewInternalClient>' + internal_client + '</NewInternalClient>' +
-               '<NewEnabled>1</NewEnabled>' +
-               '<NewPortMappingDescription>' + description + '</NewPortMappingDescription>' +
-               '<NewLeaseDuration>0</NewLeaseDuration>' +
-               '</u:AddPortMapping>' +
-               '</s:Body>' +
-               '</s:Envelope>')
+I hope this email finds you well. I wanted to share the results of an experiment I recently conducted to assess the effectiveness of device prioritization in our network environment. The objective was to determine if prioritizing a device on our network would lead to a noticeable improvement in video streaming performance, especially in the presence of network congestion.
 
-    soapActionHeader = { 'Soapaction' : '"' + p_service + '#AddPortMapping' + '"',
-                         'Content-type' : 'text/xml;charset="utf-8"' }
-    resp = requests.post(p_url, data=payload, headers=soapActionHeader)
+After thorough testing and analysis, I regret to inform you that the findings suggest that device prioritization, as currently configured, did not result in any significant improvement in video streaming quality. Here are the key observations and findings:
 
-    if resp.status_code != 200:
-        print('\t[-] Failed to add port mapping. Status code: %d' % resp.status_code)
-    else:
-        print('\t[+] Port mapping added successfully: External Port %d => Internal Port %d' % (external_port, internal_port))
+Video Start Failures: We monitored the occurrence of video start failures for both the prioritized and non-prioritized devices. Surprisingly, there were no apparent differences in the number of video start failures, indicating that device prioritization did not prevent these issues.
 
-# To add a port forwarding rule, call the add_port_mapping function with the necessary parameters.
-# Example:
-# add_port_mapping("http://192.168.1.1:32863/ctl/IPConn", "urn:schemas-upnp-org:service:WANIPConnection:2",
-#                  "192.168.1.100", 80, 8080, "TCP", "My Web Server")
+Video Start Time: The time it took for video playback to begin was consistent for both the prioritized and non-prioritized devices. We expected to see a quicker start time for the prioritized device, but this was not the case.
+
+Playback Failures: The instances of playback failures that occurred after video start were similar for both devices, suggesting that device prioritization did not result in a reduction in these disruptions during the streaming session.
+
+Visual Inspection: We also conducted a visual inspection of video quality. Interestingly, there were no discernible differences in video quality between the prioritized and non-prioritized devices. This aligns with the other findings and reinforces the lack of improvement due to device prioritization.
+
+Based on these observations, it appears that device prioritization, in its current configuration, may not be the solution to enhance video streaming performance, especially in scenarios involving network congestion. Other factors, such as network settings, the type of streaming content, and the extent of network congestion, may have a more significant impact on the overall streaming experience.
+
+In light of these findings, I would recommend exploring alternative strategies to optimize our network and improve video streaming quality. This could include adjusting router settings, closely monitoring network traffic, or considering different approaches to prioritize and allocate resources.
+
+These results provide valuable insights into the conditions under which device prioritization may or may not be effective. It also opens the door for further research to better understand how to leverage this feature in a more impactful way.
+
+I would be happy to discuss these findings in more detail or provide additional information if needed. Please feel free to reach out with any questions or concerns.
+
+Thank you for your attention to this matter, and I look forward to further discussions on how to enhance our network performance.
+
+Best regards,
+
+[Your Name]
+[Your Contact Information]

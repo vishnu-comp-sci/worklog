@@ -44,6 +44,17 @@ qos_Default_ct Chain: It works with CONNMARK and is used to save and restore spe
 
 qos_act Chains (qos_actXX): These chains have multiple targets, primarily MARK and DSCP set actions. They are used to mark packets based on specific values and apply Differentiated Services Code Point (DSCP) values to those packets.
 
+
+Modify the existing Python script used for graphing Excel data to handle data alignment.
+Read data from 'Sheet1, Column 1' and 'Sheet2, Column 2' in an Excel file.
+Ensure that the data arrays have the same length by trimming the longer array to match the length of the shorter one.
+Create a time array with the same length as the data arrays for plotting.
+Implement robust error handling to handle cases where optional dependencies like 'openpyxl' are missing.
+Customize the graph with labels, titles, and legends as needed.
+Ensure that the code is compatible with Excel files containing varying data lengths.
+Test the code thoroughly to validate the data alignment and graph generation.
+Document any changes made to the script for future reference.
+This technical description provides a detailed overview of the task
 qos_mac Chain: This chain applies specific marks to packets based on MAC (Media Access Control) addresses and sets different marks for different MAC addresses.
 
 In summary, the iptables rules in the mangle table are used for packet classification, marking, and manipulation based on various criteria such as packet marks, MAC addresses, and DSCP values. These rules help control the behavior of network traffic in a flexible and customizable way, allowing for traffic prioritization and management.

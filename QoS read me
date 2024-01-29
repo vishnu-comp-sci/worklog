@@ -9,3 +9,15 @@ Analysis: Examine the impact of current QoS settings on video conferencing perfo
 Optimization Recommendations: Develop actionable recommendations for enhancing QoS settings to prioritize video conferencing traffic, reduce jitter and latency.
 
 Goal: Achieve optimized network performance for robust and interruption-free video conferencing across the organization.
+
+
+Title: Document and Analyze iptables Rules in mangle Table
+
+Summary:
+
+Thorough documentation and analysis of iptables rules in the mangle table.
+In-depth examination of key chains, including PREROUTING, INPUT, FORWARD, OUTPUT, POSTROUTING, qos_Default, qos_Default_ct, qos_act, and qos_mac.
+Comprehensive overview of:
+Specific match criteria used for packet classification.
+Actions executed on packets, such as marking and DSCP value adjustment.
+Findings serve as a crucial resource for network understanding, troubleshooting, and optimization.

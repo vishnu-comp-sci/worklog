@@ -1,0 +1,36 @@
+Collect Data from the Device
+Connect to the Device: Use a Bluetooth library compatible with your development environment (e.g., for JavaScript, noble can be used; for Python, pybluez or bluepy) to connect to the heart rate and SpO2 monitor.
+Read Data: Implement code to subscribe to notifications from the device for heart rate and SpO2 data. This usually involves discovering the device's services and characteristics, then reading the heart rate and SpO2 data as it's broadcasted.
+2. Setup a Web Server
+Create a Web Server: Use a web framework suitable for your programming language (e.g., Express.js for Node.js, Flask for Python) to create a basic web server.
+Serve an HTML Page: The server should serve an HTML page that includes Chart.js or another charting library for plotting the live data graphically.
+3. Implement WebSocket Communication
+Setup WebSocket: Use WebSocket for real-time communication between your server and the HTML page. This allows you to push updates to the client's web page without needing the page to refresh.
+Broadcast Data: Modify your server code to broadcast heart rate and SpO2 data to connected clients through WebSocket as soon as it's received from the device.
+4. Display Live Data on the Web Page
+Set Up Chart.js: On the client side (HTML page), set up Chart.js (or any other charting library) to plot the data.
+Handle WebSocket Messages: Write JavaScript to handle incoming WebSocket messages that contain the heart rate and SpO2 data.
+Update the Graph: As new data comes in via WebSocket, update the graph dynamically with the new values.
+Implementation Steps
+Device Connection and Data Collection:
+
+Use a Bluetooth library to establish a connection with the heart rate and SpO2 monitor.
+Implement characteristic subscription to receive live data updates.
+Web Server Setup:
+
+Initialize a web server using a framework of your choice.
+Create an endpoint to serve an HTML page that includes the live graph.
+WebSocket Setup:
+
+Integrate WebSocket into both the server and client-side code.
+On the server, broadcast heart rate and SpO2 data over WebSocket as it's received.
+Graph Setup and Data Display:
+
+In the client-side JavaScript, initialize a graph using Chart.js.
+Connect to the server via WebSocket and listen for data broadcasts.
+Update the graph in real-time as new data is received through WebSocket.
+Test:
+
+Ensure the device is correctly broadcasting data to your server.
+Verify the web page correctly updates the graph with live data.
+This approach provides a real-time, dynamic graph of heart rate and SpO2 data on a web page, leveraging WebSocket for live updates and Chart.js for data visualization.

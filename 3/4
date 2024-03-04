@@ -1,0 +1,15 @@
+Service Discovery: The program initiates a search for the Oximeter service using Bluetooth Low Energy (BLE) discovery mechanisms.
+
+Characteristic Identification: Upon discovering the service, it identifies the specific characteristics related to the Oximeter data transmission.
+
+Descriptor Exploration: Within the identified characteristics, the program explores descriptors to enable notifications for real-time data updates.
+
+WebSocket Server Setup: The program establishes a WebSocket server on the OpenWRT router to handle client connections.
+
+Continuous Data Streaming: It continuously retrieves live Oximeter data and streams it to connected clients over WebSocket.
+
+HTML Page Integration: An HTML page served by the program connects to the WebSocket server to display live Oximeter data.
+
+User Interface Update: The HTML page dynamically updates to reflect the latest SpO2 and Heart Rate readings from the Oximeter.
+
+Healthcare Monitoring: This system enables real-time monitoring of vital health metrics, fostering proactive healthcare interventions.
